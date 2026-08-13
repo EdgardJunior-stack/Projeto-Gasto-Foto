@@ -26,12 +26,23 @@
         </div>
 
 
-        <!-- INPUT PARA SELECIONAR IMAGENS -->
+        <!-- CÂMERA E CAPTURA DE FOTO -->
         
-        <label>
-            📄 Toque para fotografar
-            <input class="foto" onchange="lerFoto()" type="file" accept="image/*">
-        </label>
+        <div class="camera-container">
+            <button id="abrirCamera" class="btn-camera">📸 Toque para fotografar</button>
+            
+            <!-- Elemento de vídeo (fica oculto até o usuário clicar) -->
+            <video id="video" class="video-camera" playsinline></video>
+            
+            <!-- Canvas para capturar a foto (oculto) -->
+            <canvas id="canvas" style="display: none;"></canvas>
+            
+            <!-- Botão para tirar foto (só aparece quando câmera está ativa) -->
+            <button id="tirarFoto" class="btn-tirar-foto" style="display: none;">📷 Tirar Foto</button>
+            
+            <!-- Botão para fechar câmera -->
+            <button id="fecharCamera" class="btn-fechar-camera" style="display: none;">❌ Fechar Câmera</button>
+        </div>
 
         <div class="lista">
 

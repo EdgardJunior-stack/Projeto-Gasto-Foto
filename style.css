@@ -89,6 +89,52 @@ input {
 }
 
 
+.camera-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.btn-camera, .btn-tirar-foto, .btn-fechar-camera {
+    background-color: #6d9206;
+    box-shadow: 0 10px 10px #5304778a;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px;
+    border: 1px dashed #ffffff;
+    border-radius: 40px;
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-camera:hover, .btn-tirar-foto:hover {
+    background-color: #5a7a05;
+    transform: scale(1.05);
+}
+
+.btn-fechar-camera {
+    background-color: #dc3545;
+    width: 50%;
+}
+
+.btn-fechar-camera:hover {
+    background-color: #c82333;
+}
+
+.video-camera {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
 .comprovante {
     background-color: #dbdbdb;
     display: flex;
