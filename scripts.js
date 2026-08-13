@@ -5,19 +5,46 @@ let quantidade = 0;
 let stream = null;
 
 // Elementos do DOM
-const abrirCameraBtn = document.getElementById("abrirCamera");
-const tirarFotoBtn = document.getElementById("tirarFoto");
-const fecharCameraBtn = document.getElementById("fecharCamera");
-const videoElement = document.getElementById("video");
-const canvasElement = document.getElementById("canvas");
+let abrirCameraBtn;
+let tirarFotoBtn;
+let fecharCameraBtn;
+let videoElement;
+let canvasElement;
 
-// Evento para abrir a câmera
-abrirCameraBtn.addEventListener("click", async () => {
+// Executar quando o DOM está pronto
+document.addEventListener("DOMContentLoaded", () => {
+    // Buscar os elementos depois que o DOM está pronto
+    abrirCameraBtn = document.getElementById("abrirCamera");
+    tirarFotoBtn = document.getElementById("tirarFoto");
+    fecharCameraBtn = document.getElementById("fecharCamera");
+    videoElement = document.getElementById("video");
+    canvasElement = document.getElementById("canvas");
+
+    // Verificar se elementos existem
+    if (!abrirCameraBtn) {
+        console.error("Erro: Botão abrirCamera não encontrado!");
+        return;
+    }
+
+    // Adicionar listeners aos botões
+    abrirCameraBtn.addEventListener("click", abrirCameraFunction);
+    tirarFotoBtn.addEventListener("click", tirarFotoFunction);
+    fecharCameraBtn.addEventListener("click", () => {
+        fecharCamera();
+    });
+});
+
+// Função para abrir câmera
+async function abrirCameraFunction() {
     try {
+        console.log("Tentando abrir câmera...");
+        
         // Solicita acesso à câmera
         stream = await navigator.mediaDevices.getUserMedia({
             video: { facingMode: "environment" } // "environment" = câmera traseira
         });
+
+        console.log("Câmera aberta com sucesso!");
 
         // Mostra o vídeo da câmera
         videoElement.srcObject = stream;
@@ -29,37 +56,39 @@ abrirCameraBtn.addEventListener("click", async () => {
         fecharCameraBtn.style.display = "block";
 
     } catch (erro) {
+        console.error("Erro ao acessar a câmera:", erro);
         alert("Erro ao acessar a câmera: " + erro.message);
     }
-});
+}
 
-// Evento para tirar foto
-tirarFotoBtn.addEventListener("click", async () => {
-    // Configura o canvas com o tamanho do vídeo
-    canvasElement.width = videoElement.videoWidth;
-    canvasElement.height = videoElement.videoHeight;
+// Função para tirar foto
+async function tirarFotoFunction() {
+    try {
+        // Configura o canvas com o tamanho do vídeo
+        canvasElement.width = videoElement.videoWidth;
+        canvasElement.height = videoElement.videoHeight;
 
-    // Desenha a imagem do vídeo no canvas
-    const contexto = canvasElement.getContext("2d");
-    contexto.drawImage(videoElement, 0, 0);
+        // Desenha a imagem do vídeo no canvas
+        const contexto = canvasElement.getContext("2d");
+        contexto.drawImage(videoElement, 0, 0);
 
-    // Converte o canvas para blob (imagem)
-    canvasElement.toBlob(async (blob) => {
-        // Cria um arquivo a partir do blob
-        const arquivo = new File([blob], "foto.jpg", { type: "image/jpeg" });
+        // Converte o canvas para blob (imagem)
+        canvasElement.toBlob(async (blob) => {
+            // Cria um arquivo a partir do blob
+            const arquivo = new File([blob], "foto.jpg", { type: "image/jpeg" });
 
-        // Fecha a câmera
-        fecharCamera();
+            // Fecha a câmera
+            fecharCamera();
 
-        // Processa a foto como antes
-        await processarFoto(arquivo);
-    }, "image/jpeg", 0.95);
-});
+            // Processa a foto como antes
+            await processarFoto(arquivo);
+        }, "image/jpeg", 0.95);
 
-// Evento para fechar a câmera
-fecharCameraBtn.addEventListener("click", () => {
-    fecharCamera();
-});
+    } catch (erro) {
+        console.error("Erro ao tirar foto:", erro);
+        alert("Erro ao tirar foto: " + erro.message);
+    }
+}
 
 function fecharCamera() {
     // Para o stream de vídeo
@@ -107,6 +136,7 @@ async function processarFoto(arquivo) {
         document.querySelector(".comprovantes-lidos").innerText = textoComprovante;
 
     } catch (erro) {
+        console.error("Erro ao processar a foto:", erro);
         alert("Erro ao processar a foto: " + erro.message);
     }
 }
