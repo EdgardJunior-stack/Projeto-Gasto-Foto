@@ -50,8 +50,9 @@ button {
     width: 48px;
     height: 48px;
     border-radius: 16px;
-    background: #efe4f6;
-    font-size: 24px;
+    background: #eae8eb6b;
+    font-size: 27px;
+    margin-top: 0px;
 }
 
 h1,
