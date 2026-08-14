@@ -1,56 +1,75 @@
- <!DOCTYPE html> <!--VERSÃO DO HTML (MAIS MODERNA)-->
+<!DOCTYPE html> <!--VERSÃO DO HTML (MAIS MODERNA)-->
 
- <html lang="pt-br"> <!-- FICA TODO O SITE -->
+<html lang="pt-br"> <!-- FICA TODO O SITE -->
 
-    <head>  <!-- CABEÇA - CONFIGURAÇÕES -->
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css"> <!-- Link para o arquivo style.css -->
-        
-        
-        <title>GASTO DA FOTO</title>
-    </head>
-
-     <body> <!-- TODA A PARTE VISÍVEL -->
-  
-        <div class="header">
-            <h1>📸 Gasto na Foto</h1>
-            <p class="topo">Fotografe o comprovante. A IA anota pra você.</p>   
-        </div>
+<head> <!-- CABEÇA - CONFIGURAÇÕES -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> <!-- Link para o arquivo style.css -->
 
 
-        <div class="caixa-total">
-            <p>Total gasto</p> 
-            <h2 class="total-gasto">R$ 0,00</h2>
-            <p class="comprovantes-lidos">0 comprovantes lidos</p>  
-        </div>
+    <title>GASTO DA FOTO</title>
+
+<body>
+    <main class="app">
+        <header class="header">
+            <div class="brand-icon" aria-hidden="true">📷</div>
+            <div>
+                <h1>Gasto na Foto</h1>
+                <p>Fotografe o comprovante. A IA anota para você.</p>
+            </div>
+        </header>
+
+        <section class="caixa-total" aria-labelledby="total-label">
+            <p id="total-label" class="eyebrow">Total gasto</p>
+            <output class="total-gasto" aria-live="polite">R$ 0,00</output>
+            <p class="comprovantes-lidos">0 comprovantes lidos</p>
+        </section>
+
+        <section class="camera-container" aria-label="Captura de comprovante">
+            <button id="abrirCamera" class="btn-camera" type="button">
+                <span aria-hidden="true">📸</span>
+                <span>Fotografar comprovante</span>
+            </button>
+            <p class="capture-help">Use a câmera traseira para uma leitura mais nítida.</p>
+            <video id="video" class="video-camera" playsinline="" autoplay="" muted=""></video>
+            <canvas id="canvas" hidden=""></canvas>
+            <div class="camera-actions">
+                <button id="tirarFoto" class="btn-tirar-foto" type="button" hidden="">📷 Tirar foto</button>
+                <button id="fecharCamera" class="btn-fechar-camera" type="button" hidden="">Cancelar</button>
+            </div>
+            <p id="statusProcessamento" class="status-processamento" role="status" aria-live="polite" hidden=""></p>
+        </section>
+
+        <section class="summary" aria-labelledby="summary-title">
+            <h2 id="summary-title">Resumo desta sessão</h2>
+            <div class="summary-grid">
+                <article class="summary-card"><span aria-hidden="true">💰</span><small>Gasto total</small><strong
+                        class="resumo-total">R$ 0,00</strong></article>
+                <article class="summary-card"><span aria-hidden="true">🧾</span><small>Comprovantes</small><strong
+                        class="resumo-quantidade">0</strong></article>
+                <article class="summary-card"><span
+                        aria-hidden="true">🤖</span><small>Status</small><strong>Pronto</strong></article>
+            </div>
+        </section>
+
+        <section class="recent" aria-labelledby="recent-title">
+            <div class="section-header">
+                <h2 id="recent-title">Comprovantes lidos</h2><span class="badge">Nesta sessão</span>
+            </div>
+            <div class="lista" aria-live="polite">
+                <article class="empty-state">
+                    <span aria-hidden="true">🧾</span>
+                    <div><strong>Nenhum comprovante ainda</strong>
+                        <p>Fotografe o primeiro para vê-lo aqui.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+    <script src="https://js.puter.com/v2/"></script>
+    <script src="scripts.js"></script>
 
 
-        <!-- CÂMERA E CAPTURA DE FOTO -->
-        
-        <div class="camera-container">
-            <button id="abrirCamera" class="btn-camera">📸 Toque para fotografar</button>
-            
-            <!-- Elemento de vídeo (fica oculto até o usuário clicar) -->
-            <video id="video" class="video-camera" playsinline autoplay muted></video>
-            
-            <!-- Canvas para capturar a foto (oculto) -->
-            <canvas id="canvas" style="display: none;"></canvas>
-            
-            <!-- Botão para tirar foto (só aparece quando câmera está ativa) -->
-            <button id="tirarFoto" class="btn-tirar-foto" style="display: none;">📷 Tirar Foto</button>
-            
-            <!-- Botão para fechar câmera -->
-            <button id="fecharCamera" class="btn-fechar-camera" style="display: none;">❌ Fechar Câmera</button>
-        </div>
-
-        <div class="lista">
-
-        </div>
+    <puter-dialog></puter-dialog>
 </body>
-<script src="https://js.puter.com/v2/"></script>
-<script src="scripts.js">
-    
-</script>
-
-</html>
